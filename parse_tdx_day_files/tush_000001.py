@@ -1,8 +1,9 @@
 from struct import unpack
 import datetime
-def day_to_csv():
-    with open('sh999999.day','rb') as read_stream:
-        with open('sh999999.csv','w+') as write_stream:
+import os
+def day_to_csv(input_file,out_put_file):
+    with open(input_file,'rb') as read_stream:
+        with open(out_put_file,'w+') as write_stream:
             while True:
                 stock_date = read_stream.read(4)
                 open_price = read_stream.read(4)
@@ -33,4 +34,12 @@ def day_to_csv():
                 write_stream.writelines(data_list)
 
 
-day_to_csv()
+if __name__ == '__main__':
+    input_folder = 'C:/Users/lx915/PycharmProjects/tdx_stock_analysis/parse_tdx_day_files/input/'
+    output_folder = 'C:/Users/lx915/PycharmProjects/tdx_stock_analysis/parse_tdx_day_files/output/'
+    file_list = os.listdir(input_folder)
+    for fi in file_list:
+        input_file = os.path.join(input_folder,fi)
+        output_file = os.path.join(output_folder,fi[:-4])+'.csv'
+
+        day_to_csv(input_file,output_file)
