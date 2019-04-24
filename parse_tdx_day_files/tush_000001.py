@@ -4,6 +4,7 @@ import os
 def day_to_csv(input_file,out_put_file):
     with open(input_file,'rb') as read_stream:
         with open(out_put_file,'w+') as write_stream:
+            write_stream.writelines("Date,Open,High,Low,Close,Adj Close,Volume"+'\r')
             while True:
                 stock_date = read_stream.read(4)
                 open_price = read_stream.read(4)
@@ -22,7 +23,7 @@ def day_to_csv(input_file,out_put_file):
                 close_price = unpack('l',close_price)
                 amount = unpack('f',amount)
                 vol = unpack('l',vol)
-                reservation = unpack('l',reservation)
+                # reservation = unpack('l',reservation)
                 date_format = datetime.datetime.strptime(str(stock_date[0]),'%Y%M%d')
                 data_list = date_format.strftime('%Y-%M-%d')+\
                                   ','+str(open_price[0]/100)+\
@@ -35,8 +36,8 @@ def day_to_csv(input_file,out_put_file):
 
 
 if __name__ == '__main__':
-    input_folder = 'C:/Users/lx915/PycharmProjects/tdx_stock_analysis/parse_tdx_day_files/input/'
-    output_folder = 'C:/Users/lx915/PycharmProjects/tdx_stock_analysis/parse_tdx_day_files/output/'
+    input_folder = 'C:/Users/Administrator/PycharmProjects/rnnnnn/tdx_stock_analysis/parse_tdx_day_files/input/'
+    output_folder = 'C:/Users/Administrator/PycharmProjects/rnnnnn/tdx_stock_analysis/parse_tdx_day_files/output/'
     file_list = os.listdir(input_folder)
     for fi in file_list:
         input_file = os.path.join(input_folder,fi)
